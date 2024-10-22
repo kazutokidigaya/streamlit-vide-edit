@@ -1,0 +1,13 @@
+streamlit
+moviepy
+numpy
+tempfile
+groq
+assemblyai
+gtts
+pydub
+soundfile
+python-dotenv
+imageio-ffmpeg
+shutil
+subprocess
