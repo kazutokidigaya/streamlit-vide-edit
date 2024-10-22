@@ -1,10 +1,10 @@
 streamlit
-numpy
 moviepy
+numpy
 pydub
 assemblyai
 gtts
-dotenv
+python-dotenv
 imageio[ffmpeg]
 soundfile
 ffmpeg-python
