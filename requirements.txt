@@ -1,11 +1,11 @@
 streamlit
-moviepy
 numpy
-groq
+moviepy
+pydub
 assemblyai
 gtts
-pydub
+dotenv
+imageio[ffmpeg]
 soundfile
-python-dotenv
-imageio-ffmpeg==0.5.1
-ffmpeg-python==0.2.0 
+ffmpeg-python
+watchdog

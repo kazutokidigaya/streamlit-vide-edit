@@ -17,33 +17,39 @@ import subprocess
 # Load environment variables from .env file
 load_dotenv()
 
-# Check if ffmpeg and ffprobe are available
+# Check if ffmpeg is available
+def check_ffmpeg_installation():
+    try:
+        # Get paths to ffmpeg and ffprobe from imageio_ffmpeg
+        ffmpeg_exe = ffmpeg.get_ffmpeg_exe()
+        ffprobe_exe = ffmpeg.get_ffprobe_exe()
+        
+        # Check if FFmpeg is available
+        subprocess.run([ffmpeg_exe, "-version"], check=True, stdout=subprocess.PIPE)
+        print("FFmpeg is available.")
+
+        # Check if FFprobe is available
+        subprocess.run([ffprobe_exe, "-version"], check=True, stdout=subprocess.PIPE)
+        print("FFprobe is available.")
+
+        st.success("FFmpeg and FFprobe installation successful.")
+    except subprocess.CalledProcessError as e:
+        st.error("FFmpeg or FFprobe not found.")
+        st.stop()  # Stop execution if ffmpeg or ffprobe is not available
+
 def check_ffmpeg_and_ffprobe():
     ffmpeg_exe = ffmpeg.get_ffmpeg_exe()
     ffprobe_exe = shutil.which("ffprobe")  # Using shutil to check if ffprobe exists in the PATH
-    
-    # Check FFmpeg
-    try:
-        subprocess.run([ffmpeg_exe, "-version"], check=True, stdout=subprocess.PIPE)
-        st.write(f"FFmpeg: {ffmpeg_exe} is available.")
-    except subprocess.CalledProcessError as e:
-        st.error("FFmpeg is not found or not working.")
-        st.stop()
-
-    # Check FFprobe
     if not ffprobe_exe:
-        st.error("FFprobe not found in the system path. Please install FFprobe or add it to the system path.")
-        st.stop()
-    else:
-        st.write(f"FFprobe: {ffprobe_exe} is available.")
-    
+        st.error("FFprobe not found in the system path. Please install ffprobe or add it to the system path.")
+        return False
+    print(f"FFmpeg: {ffmpeg_exe} is available!")
+    print(f"FFprobe: {ffprobe_exe} is available!")
     return True
 
-# Check for FFmpeg and FFprobe before proceeding
 if not check_ffmpeg_and_ffprobe():
     st.stop()
 
-# The rest of your code...
 aai.settings.api_key = os.getenv('ASSEMBLYAI_API_KEY')
 transcriber = aai.Transcriber()
 config = aai.TranscriptionConfig(speaker_labels=True, word_boost=["um", "hmm"], boost_param='high')
@@ -205,11 +211,3 @@ if video_file is not None:
                 st.video(final_video_path)  # Show processed video
 
             st.success("Video successfully processed with corrected audio!")
-
-
-
-
-
-
-
-
