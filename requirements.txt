@@ -8,5 +8,4 @@ pydub
 soundfile
 python-dotenv
 imageio-ffmpeg
-shutil
-subprocess
+ffmpeg
