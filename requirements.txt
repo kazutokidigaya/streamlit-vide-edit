@@ -1,7 +1,6 @@
 streamlit
 moviepy
 numpy
-tempfile
 groq
 assemblyai
 gtts
