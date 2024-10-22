@@ -9,3 +9,5 @@ imageio[ffmpeg]
 soundfile
 ffmpeg-python
 watchdog
+ffmpeg
+groq
